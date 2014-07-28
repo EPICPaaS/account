@@ -1,0 +1,81 @@
+<html>
+ <head> 
+  <meta charset="utf-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+  <meta name="description" content="" /> 
+  <meta name="author" content="" /> 
+  <title>登陆</title> 
+  <link href="/account/static/css/bootstrap.css" rel="stylesheet" /> 
+  <link href="/account/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+  <link href="/account/static/css/font-awesome.min.css" rel="stylesheet" /> 
+  <link href="/account/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+  <link href="/account/static/css/prettify.css" rel="stylesheet" /> 
+  <link href="/account/static/css/select2.css" rel="stylesheet" /> 
+  <link href="/account/static/css/base.css" rel="stylesheet" /> 
+  <link href="/account/static/css/markdown.css" rel="stylesheet" /> 
+  <link href="/account/static/css/main.css" rel="stylesheet" /> 
+  <script type="text/javascript" src="/account/static/js/jquery.min.js"></script> 
+  <script type="text/javascript" src="/account/static/js/jquery.extend.js"></script> 
+  <script type="text/javascript" src="/account/static/js/bootstrap.js"></script> 
+  <script type="text/javascript" src="/account/static/js/lib.min.js"></script> 
+  <script type="text/javascript" src="/account/static/js/prettify.js"></script> 
+  <script type="text/javascript" src="/account/static/js/jStorage.js"></script> 
+  <script type="text/javascript" src="/account/static/js/main.js"></script> 
+  <script type="text/javascript" src="/account/static/js/editor.js"></script> 
+ </head> 
+ <body> 
+  <div id="wrapper"> 
+   <div id="main" class="container"> 
+    <div class="row"> 
+     <div id="content" class="col-md-12"> 
+      <div class="box"> 
+       <div class="cell last slim"> 
+        <div class="row"> 
+         <div class="col-md-4 auth-page"> 
+          <h3 class="title"> <i class="icon icon-user"></i> 登录 </h3> 
+          <form method="POST" action="{{.AppUrl}}/login"> 
+           <input name="_xsrf" value="wWaM10SkqOJWgztZ4iCpmG8UNHxMBFCx" type="hidden" />
+           <input name="_once" value="SS0niqI82P" type="hidden" /> 
+           <div class="form-group"> 
+            <label class="control-label" for="LoginForm-UserName">用户名</label> 
+            <input id="LoginForm-UserName" class="form-control" name="UserName" value="" type="text" /> 
+           </div> 
+           <div class="form-group"> 
+            <label class="control-label" for="LoginForm-Password">密码</label> 
+            <a class="pull-right" href="{{.AppUrl}}/forgot"><i class="icon-question-sign"></i> 忘记密码</a> 
+            <input id="LoginForm-Password" class="form-control" name="Password" value="" type="password" /> 
+           </div> 
+           <div class="form-group"> 
+            <label> <input name="Remember" value="false" type="hidden" /> <button class="btn btn-default btn-xs btn-checked" type="button" data-toggle="button" data-name="Remember"> <i class="icon icon-ok"></i> </button>记住登录 </label> 
+           </div> 
+           <button class="btn btn-primary" type="submit">登录&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></button> 
+          </form> 
+         </div> 
+         <div class="col-md-4 auth-page"> 
+          <div class="auth-page"> 
+           <h3 class="title"> <i class="icon icon-expand-alt"></i> 社区账户登录 </h3> 
+           <div class="auth-socials"> 
+            <a class="icon-google-plus google" href="{{.AppUrl}}/login/google"></a> 
+            <a class="icon-github github" href="{{.AppUrl}}/login/github"></a> 
+            <a class="icon-weibo weibo" href="{{.AppUrl}}/login/weibo"></a> 
+            <a class="icon-qq-round qq" href="{{.AppUrl}}/login/qq"></a> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="col-md-4 auth-page"> 
+          <div class="auth-page"> 
+           <h3 class="title"> <i class="icon icon-question"></i> 帮助 </h3> 
+           <p class="well"> 如果您还没有注册帐户的话，请先注册。 </p> 
+           <p> <a class="btn btn-default" href="{{.AppUrl}}/register">立即注册&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div>  
+ </body>
+</html>
