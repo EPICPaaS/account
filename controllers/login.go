@@ -41,6 +41,10 @@ func (this *LoginController) Login() {
 
 	this.Data["token"] = token
 	this.Data["epic_sub_site"] = loginRedirect
-	this.TplNames = "loginRedirect.html"
 
+	subSitesConf := beego.AppConfig.String("sub-sites")
+
+	this.Data["srcs"] = strings.Split(subSitesConf, ",")
+
+	this.TplNames = "loginRedirect.html"
 }

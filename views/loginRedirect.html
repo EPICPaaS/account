@@ -1,8 +1,23 @@
 <html>
-<head>
+	<head> 
+  	<meta charset="utf-8" /> 
+	<title>请稍候....</title> 
+	<link href="/static/css/bootstrap.css" rel="stylesheet" /> 
+  	<link href="/static/css/base.css" rel="stylesheet" />  
 </head>
 <body>
-  <p>Token:{{.token}} </p>
-<p>epic_sub_site:{{.epic_sub_site}}</P>
+
+	{{range .srcs}}
+    <script src='{{.}}/epic_login?token={{$.token}}'></script>
+	{{end}}
+	
+	请稍候....
+	
+	<script type="text/javascript">
+		setTimeout(function(){
+			window.location.href = '{{.epic_sub_site}}';
+		}, 5 * 1000);
+	</script>
+	
 </body>
 </html>
