@@ -9,7 +9,8 @@ import (
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	beego.SetStaticPath("/account/static", "static")
+	beego.SetStaticPath("/static", "static")
 	setting.LoadConfig()
+	beego.SessionOn = true
 	beego.Run()
 }

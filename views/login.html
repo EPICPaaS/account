@@ -6,24 +6,24 @@
   <meta name="description" content="" /> 
   <meta name="author" content="" /> 
   <title>用户登陆</title> 
-  <link href="/account/static/css/bootstrap.css" rel="stylesheet" /> 
-  <link href="/account/static/css/bootstrap-theme.css" rel="stylesheet" /> 
-  <link href="/account/static/css/font-awesome.min.css" rel="stylesheet" /> 
-  <link href="/account/static/css/bootstrap-theme.css" rel="stylesheet" /> 
-  <link href="/account/static/css/prettify.css" rel="stylesheet" /> 
-  <link href="/account/static/css/select2.css" rel="stylesheet" /> 
-  <link href="/account/static/css/base.css" rel="stylesheet" /> 
-  <link href="/account/static/css/markdown.css" rel="stylesheet" /> 
-  <link href="/account/static/css/main.css" rel="stylesheet" /> 
-  <script type="text/javascript" src="/account/static/js/jquery.min.js"></script> 
-  <script type="text/javascript" src="/account/static/js/jquery.extend.js"></script> 
-  <script type="text/javascript" src="/account/static/js/bootstrap.js"></script> 
-  <script type="text/javascript" src="/account/static/js/lib.min.js"></script> 
-  <script type="text/javascript" src="/account/static/js/prettify.js"></script> 
-  <script type="text/javascript" src="/account/static/js/jStorage.js"></script> 
-  <script type="text/javascript" src="/account/static/js/main.js"></script> 
-  <script type="text/javascript" src="/account/static/js/editor.js"></script> 
-  <script type="text/javascript" src="/account/static/js/login.js"></script> 
+  <link href="/static/css/bootstrap.css" rel="stylesheet" /> 
+  <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+  <link href="/static/css/font-awesome.min.css" rel="stylesheet" /> 
+  <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+  <link href="/static/css/prettify.css" rel="stylesheet" /> 
+  <link href="/static/css/select2.css" rel="stylesheet" /> 
+  <link href="/static/css/base.css" rel="stylesheet" /> 
+  <link href="/static/css/markdown.css" rel="stylesheet" /> 
+  <link href="/static/css/main.css" rel="stylesheet" /> 
+  <script type="text/javascript" src="/static/js/jquery.min.js"></script> 
+  <script type="text/javascript" src="/static/js/jquery.extend.js"></script> 
+  <script type="text/javascript" src="/static/js/bootstrap.js"></script> 
+  <script type="text/javascript" src="/static/js/lib.min.js"></script> 
+  <script type="text/javascript" src="/static/js/prettify.js"></script> 
+  <script type="text/javascript" src="/static/js/jStorage.js"></script> 
+  <script type="text/javascript" src="/static/js/main.js"></script> 
+  <script type="text/javascript" src="/static/js/editor.js"></script> 
+  <script type="text/javascript" src="/static/js/login.js"></script> 
 <!--[if lt IE 9]>  
 			<script type="text/javascript" src="/account/static/js/jsml5shiv.js"></script>
 <![endif]-->
@@ -41,7 +41,7 @@
 			 {{if .error}}
                    <p id="error" style="color:red">{{.error}}</p>
 			 {{end}}
-          <form method="POST" action="{{.AppUrl}}/login"> 
+          <form method="POST" action="/login"> 
            <input name="_xsrf" value="wWaM10SkqOJWgztZ4iCpmG8UNHxMBFCx" type="hidden" />
            <input name="_once" value="SS0niqI82P" type="hidden" /> 
 		   <input name="epic_sub_site" value="{{.epic_sub_site}}" type="hidden"/>
@@ -51,7 +51,7 @@
            </div> 
            <div class="form-group"> 
             <label class="control-label" for="LoginForm-Password">密码</label> 
-            <a class="pull-right" href="{{.AppUrl}}/forgot"><i class="icon-question-sign"></i> 忘记密码</a> 
+            <a class="pull-right" href="/forgot"><i class="icon-question-sign"></i> 忘记密码</a> 
             <input id="LoginForm-Password" class="form-control" name="Password" value="" type="password" /> 
            </div> 
            <div class="form-group"> 
@@ -64,10 +64,10 @@
           <div class="auth-page"> 
            <h3 class="title"> <i class="icon icon-expand-alt"></i> 社区账户登录 </h3> 
            <div class="auth-socials"> 
-            <a class="icon-google-plus google" href="{{.AppUrl}}/login/google"></a> 
-            <a class="icon-github github" href="{{.AppUrl}}/login/github"></a> 
-            <a class="icon-weibo weibo" href="{{.AppUrl}}/login/weibo"></a> 
-            <a class="icon-qq-round qq" href="{{.AppUrl}}/login/qq"></a> 
+            <a class="icon-google-plus google" href="/login/google"></a> 
+            <a class="icon-github github" href="/login/github"></a> 
+            <a class="icon-weibo weibo" href="/login/weibo"></a> 
+            <a class="icon-qq-round qq" href="/login/qq"></a> 
            </div> 
           </div> 
          </div> 
@@ -75,7 +75,7 @@
           <div class="auth-page"> 
            <h3 class="title"> <i class="icon icon-question"></i> 帮助 </h3> 
            <p class="well"> 如果您还没有注册帐户的话，请先注册。 </p> 
-           <p> <a class="btn btn-default" href="{{.AppUrl}}/register">立即注册&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
+           <p> <a class="btn btn-default" href="/register">立即注册&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
           </div> 
          </div> 
         </div> 

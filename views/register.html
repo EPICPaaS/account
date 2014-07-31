@@ -6,25 +6,25 @@
   <meta name="description" content="" /> 
   <meta name="author" content="" /> 
   <title>用户注册</title> 
-  <link href="/account/static/css/bootstrap.css" rel="stylesheet" /> 
-  <link href="/account/static/css/bootstrap-theme.css" rel="stylesheet" /> 
-  <link href="/account/static/css/font-awesome.min.css" rel="stylesheet" /> 
-  <link href="/account/static/css/bootstrap-theme.css" rel="stylesheet" /> 
-  <link href="/account/static/css/prettify.css" rel="stylesheet" /> 
-  <link href="/account/static/css/select2.css" rel="stylesheet" /> 
-  <link href="/account/static/css/base.css" rel="stylesheet" /> 
-  <link href="/account/static/css/markdown.css" rel="stylesheet"/> 
-  <link href="/account/static/css/main.css" rel="stylesheet" /> 
-  <script type="text/javascript" src="/account/static/js/jquery.min.js"></script> 
-  <script type="text/javascript" src="/account/static/js/jquery.extend.js"></script> 
-  <script type="text/javascript" src="/account/static/js/bootstrap.js"></script> 
-  <script type="text/javascript" src="/account/static/js/lib.min.js"></script> 
-  <script type="text/javascript" src="/account/static/js/prettify.js"></script> 
-  <script type="text/javascript" src="/account/static/js/jStorage.js"></script> 
-  <script type="text/javascript" src="/account/static/js/main.js"></script> 
-  <script type="text/javascript" src="/account/static/js/editor.js"></script> 
-  <script type="text/javascript" src="/account/static/js/jquery.validate.js"></script>  
-  <script type="text/javascript" src="/account/static/js/register.js"></script>  	 
+  <link href="/static/css/bootstrap.css" rel="stylesheet" /> 
+  <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+  <link href="/static/css/font-awesome.min.css" rel="stylesheet" /> 
+  <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+  <link href="/static/css/prettify.css" rel="stylesheet" /> 
+  <link href="/static/css/select2.css" rel="stylesheet" /> 
+  <link href="/static/css/base.css" rel="stylesheet" /> 
+  <link href="/static/css/markdown.css" rel="stylesheet"/> 
+  <link href="/static/css/main.css" rel="stylesheet" /> 
+  <script type="text/javascript" src="/static/js/jquery.min.js"></script> 
+  <script type="text/javascript" src="/static/js/jquery.extend.js"></script> 
+  <script type="text/javascript" src="/static/js/bootstrap.js"></script> 
+  <script type="text/javascript" src="/static/js/lib.min.js"></script> 
+  <script type="text/javascript" src="/static/js/prettify.js"></script> 
+  <script type="text/javascript" src="/static/js/jStorage.js"></script> 
+  <script type="text/javascript" src="/static/js/main.js"></script> 
+  <script type="text/javascript" src="/static/js/editor.js"></script> 
+  <script type="text/javascript" src="/static/js/jquery.validate.js"></script>  
+  <script type="text/javascript" src="/static/js/register.js"></script>  	 
 <!--[if lt IE 9]>  
 			<script type="text/javascript" src="/account/static/js/jsml5shiv.js"></script>
 <![endif]-->
@@ -40,7 +40,7 @@
         <div class="row"> 
          <div class="col-md-6 auth-page"> 
           <h3 class="title"> <i class="icon icon-user"></i> 注册 </h3> 
-          <form method="POST"  id="register_form" action="{{.AppUrl}}/register"> 
+          <form method="POST"  id="register_form" action="/register"> 
            <div class="form-group"> 
             <label class="control-label" for="UserName">用户名</label> 
             <input id="UserName" name="UserName" type="text" value="" class="form-control" placeholder="请输入您的用户名" /> 

@@ -22,8 +22,9 @@ func init() {
 }
 
 func LoadConfig() {
+
 	store := cache.NewMemoryCache()
-	Captcha = captcha.NewWithFilter("/account/captcha/", store)
+	Captcha = captcha.NewWithFilter("/captcha/", store)
 
 	driverName := beego.AppConfig.String("driverName")
 	dataSource := beego.AppConfig.String("dataSource")
@@ -43,6 +44,7 @@ func LoadConfig() {
 	if err != nil {
 		beego.Error(err)
 	}
+	SocialAuthInit()
 }
 
 func SocialAuthInit() {
@@ -81,8 +83,8 @@ func SocialAuthInit() {
 		beego.Error(err)
 	}
 
-	socialAuth.SocialAuth = social.NewSocial("/login/", new(socialAuth.SocialAuther))
+	socialAuth.SocialAuth = social.NewSocial("/login", new(socialAuth.SocialAuther))
 
-	beego.InsertFilter("/account/login/*/access", beego.BeforeRouter, socialAuth.HandleAccess)
-	beego.InsertFilter("/account/login/*", beego.BeforeRouter, socialAuth.HandleRedirect)
+	beego.InsertFilter("/login/*/access", beego.BeforeRouter, socialAuth.HandleAccess)
+	beego.InsertFilter("/login/*", beego.BeforeRouter, socialAuth.HandleRedirect)
 }

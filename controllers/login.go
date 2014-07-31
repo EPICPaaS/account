@@ -37,7 +37,7 @@ func (this *LoginController) Login() {
 		return
 	}
 	//生成用户登录token
-	token := "asdfa"
+	token := tools.CreateToken(username)
 
 	this.Data["token"] = token
 	this.Data["epic_sub_site"] = loginRedirect
