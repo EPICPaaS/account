@@ -4,6 +4,7 @@ import (
 	"github.com/EPICPaaS/account/modules/auth"
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego"
+	"strconv"
 	"strings"
 )
 
@@ -28,7 +29,7 @@ func (this *LoginController) Login() {
 	username := this.GetString("UserName")
 	password := this.GetString("Password")
 	loginRedirect := this.GetString("epic_sub_site")
-	ok := auth.VerifyUser(username, password)
+	ok, user := auth.VerifyUser(username, password)
 	if !ok {
 		this.TplNames = "login.html"
 		this.Data["error"] = "用户名或密码错误!"
@@ -37,7 +38,7 @@ func (this *LoginController) Login() {
 		return
 	}
 	//生成用户登录token
-	token, err := tools.CreateToken(username)
+	token, err := tools.CreateToken(strconv.Itoa(user.Id))
 	if len(token) == 0 || err != nil {
 		this.TplNames = "login.html"
 		this.Data["error"] = "生成Token失败"

@@ -1,10 +1,13 @@
 package auth
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/EPICPaaS/account/models"
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego/orm"
+	"github.com/garyburd/redigo/redis"
+	"strconv"
 	"strings"
 )
 
@@ -34,12 +37,12 @@ func UserIsExists(username, email string) bool {
 	return user.Exists()
 }
 
-func VerifyUser(username, password string) bool {
+func VerifyUser(username, password string) (bool, *models.User) {
 	isExists := UserIsExists(username, username)
-	if !isExists {
-		return false
-	}
 	user := models.User{}
+	if !isExists {
+		return false, &user
+	}
 	var err error
 	qs := orm.NewOrm()
 	if strings.IndexRune(username, '@') == -1 {
@@ -51,10 +54,11 @@ func VerifyUser(username, password string) bool {
 	}
 	if err != nil {
 		fmt.Println("用户登录读取用户信息失败" + err.Error())
-		return false
+		return false, &user
 	}
 
-	return VerifyPassword(password, user.Password)
+	ok := VerifyPassword(password, user.Password)
+	return ok, &user
 }
 
 func VerifyPassword(rawPwd, encodedPwd string) bool {
@@ -64,4 +68,30 @@ func VerifyPassword(rawPwd, encodedPwd string) bool {
 		encoded = encodedPwd[11:]
 	}
 	return tools.EncodePassword(rawPwd, salt) == encoded
+}
+
+func GetUserInfo(userid string) (bool, models.User) {
+	var err error
+	user := models.User{}
+	userKey := "$account_userid_" + strconv.Itoa(user.Id)
+	conn := tools.RedisStorageInstance.GetConn(userKey)
+	value, err := redis.String(conn.Do("GET", userKey))
+	if len(value) != 0 || err == nil {
+		valueByte := []byte(value)
+		err := json.Unmarshal(valueByte, &user)
+		if err == nil {
+			return true, user
+		}
+	}
+	qs := orm.NewOrm()
+	user.Id, _ = strconv.Atoi(userid)
+	err = qs.Read(&user, "Id")
+	if err != nil {
+		fmt.Println("用户登录读取用户信息失败" + err.Error())
+		return false, user
+	}
+	userByte, _ := json.Marshal(&user)
+	conn.Do("SET", userKey, string(userByte))
+	return true, user
+
 }

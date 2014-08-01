@@ -60,7 +60,7 @@ func NewRedisStorage() *RedisStorage {
 }
 
 // getConn get the connection of matching with key using ketama hashing.
-func (s *RedisStorage) getConn(key string) redis.Conn {
+func (s *RedisStorage) GetConn(key string) redis.Conn {
 	if len(s.pool) == 0 {
 		return nil
 	}

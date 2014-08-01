@@ -27,7 +27,7 @@ func CreateToken(userId string) (string, error) {
 	tokenByte, _ := json.Marshal(&token)
 	tokenStr := base64.URLEncoding.EncodeToString(tokenByte)
 	fmt.Println("生成的token为-" + tokenStr)
-	redisConn := RedisStorageInstance.getConn(tokenStr)
+	redisConn := RedisStorageInstance.GetConn(tokenStr)
 	defer redisConn.Close()
 	err := redisConn.Send("SET", tokenStr, tokenStr)
 	if err != nil {
@@ -49,13 +49,17 @@ func CreateToken(userId string) (string, error) {
 }
 
 func VerifyToken(token string) (bool, string) {
+	if len(token) == 0 {
+		return false, ""
+	}
 	//1.判断token是否有效
-	redisConn := RedisStorageInstance.getConn(token)
+	redisConn := RedisStorageInstance.GetConn(token)
 	defer redisConn.Close()
 	value, err := redis.String(redisConn.Do("GET", token))
 	if len(value) == 0 || err != nil {
 		return false, ""
 	}
+	redisConn.Do("EXPIRE", token, tokenExpireTIme)
 	//2.解密token获取userID
 	tokenByte, _ := base64.URLEncoding.DecodeString(token)
 	tokenObj := Token{}
@@ -65,7 +69,7 @@ func VerifyToken(token string) (bool, string) {
 }
 
 func DeleteToken(token string) bool {
-	redisConn := RedisStorageInstance.getConn(token)
+	redisConn := RedisStorageInstance.GetConn(token)
 	defer redisConn.Close()
 	_, err := redisConn.Do("DEL", token)
 	if err != nil {
