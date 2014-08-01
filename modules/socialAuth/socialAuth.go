@@ -23,9 +23,7 @@ func (p *SocialAuther) IsUserLogin(ctx *context.Context) (int, bool) {
 func (p *SocialAuther) LoginUser(ctx *context.Context, uid int) (string, error) {
 	fmt.Println("uid--" + strconv.Itoa(uid))
 	// fake login the user
-	if uid == 1 {
-		ctx.Input.CruSession.Set("login_user", 1)
-	}
+	ctx.Input.CruSession.Set("login_user", uid)
 	return "/register/connect", nil
 }
 

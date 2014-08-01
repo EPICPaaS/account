@@ -32,11 +32,13 @@ type User struct {
 	IsForbid    bool   `orm:"index"`
 	Lang        int    `orm:"index"`
 	//	LangAdds    SliceStringField `orm:"size(50)"`
-	Rands   string    `orm:"size(10)"`
-	Created time.Time `orm:"auto_now_add"`
-	Updated time.Time `orm:"auto_now"`
-	QQ      string    `orm:"size(20)"`
-	TelNum  string    `orm:"size(30)"`
+	Rands        string    `orm:"size(10)"`
+	Created      time.Time `orm:"auto_now_add"`
+	Updated      time.Time `orm:"auto_now"`
+	QQ           string    `orm:"size(20)"`
+	TelNum       string    `orm:"size(30)"`
+	UserSocialId string    ``
+	Identify     string    ``
 }
 
 func (m *User) Insert() error {

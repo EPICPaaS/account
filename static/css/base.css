@@ -4,7 +4,7 @@ html, body {
 
 body {
   background-color: #eaeaea;
-  background-image: url('/account/static/img/bg.gif');
+  background-image: url('/static/img/bg.gif');
 }
 
 body,

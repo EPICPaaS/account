@@ -37,8 +37,15 @@ func (this *LoginController) Login() {
 		return
 	}
 	//生成用户登录token
-	token := tools.CreateToken(username)
-
+	token, err := tools.CreateToken(username)
+	if len(token) == 0 || err != nil {
+		this.TplNames = "login.html"
+		this.Data["error"] = "生成Token失败"
+		this.Data["epic_sub_site"] = loginRedirect
+		this.Data["UserName"] = username
+		return
+	}
+	this.Ctx.SetCookie("epic_user_token ", token)
 	this.Data["token"] = token
 	this.Data["epic_sub_site"] = loginRedirect
 
@@ -47,4 +54,16 @@ func (this *LoginController) Login() {
 	this.Data["srcs"] = strings.Split(subSitesConf, ",")
 
 	this.TplNames = "loginRedirect.html"
+}
+
+func (this *LoginController) LoginOut() {
+	token := this.GetString("token")
+	if len(token) == 0 {
+		token = this.Ctx.GetCookie("epic_user_token")
+	}
+	if len(token) != 0 {
+		tools.DeleteToken(token)
+	}
+	this.Ctx.SetCookie("epic_user_token ", "")
+	this.TplNames = "login.html"
 }

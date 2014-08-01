@@ -46,7 +46,8 @@ func (this *RegisterController) Register() {
 
 }
 func (this *RegisterController) Succeed() {
+	this.Data["appname"] = "单点登录服务"
 	this.Data["state"] = "注册成功"
-	this.Data["msg"] = "用户已经存在"
+	this.Data["msg"] = "用户已经登录"
 	this.TplNames = "succeed.html"
 }

@@ -2,6 +2,7 @@ package setting
 
 import (
 	"github.com/EPICPaaS/account/models"
+	"github.com/EPICPaaS/account/modules/filter"
 	"github.com/EPICPaaS/account/modules/socialAuth"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/cache"
@@ -84,7 +85,7 @@ func SocialAuthInit() {
 	}
 
 	socialAuth.SocialAuth = social.NewSocial("/login", new(socialAuth.SocialAuther))
-
+	beego.InsertFilter("/login", beego.BeforeRouter, filter.HandleAccess)
 	beego.InsertFilter("/login/*/access", beego.BeforeRouter, socialAuth.HandleAccess)
 	beego.InsertFilter("/login/*", beego.BeforeRouter, socialAuth.HandleRedirect)
 }
