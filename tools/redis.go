@@ -2,6 +2,8 @@ package tools
 
 import (
 	"errors"
+	"fmt"
+	"github.com/astaxie/beego"
 	"github.com/garyburd/redigo/redis"
 	"strconv"
 	"strings"
@@ -20,7 +22,7 @@ type RedisStorage struct {
 	ring *HashRing
 }
 
-func NewRedisStorage() *RedisStorage {
+func newRedisStorage() *RedisStorage {
 	var (
 		err error
 		w   int
@@ -72,8 +74,74 @@ func (s *RedisStorage) GetConn(key string) redis.Conn {
 	return p.Get()
 }
 
+func (s *RedisStorage) SetExpireKey(key, value string, tokenExpireTIme int) (bool, error) {
+	conn := s.GetConn(key)
+	defer conn.Close()
+	err := conn.Send("SET", key, value)
+	if err != nil {
+		fmt.Println("redis操作失败" + err.Error())
+		return false, err
+	}
+	err = conn.Send("EXPIRE", key, tokenExpireTIme)
+	if err != nil {
+		fmt.Println("redis操作失败" + err.Error())
+		return false, err
+	}
+	err = conn.Flush()
+	if err != nil {
+		fmt.Println("redis操作失败" + err.Error())
+		return false, err
+	}
+	return true, nil
+}
+
+func (s *RedisStorage) SetKey(key, value string) (bool, error) {
+	conn := s.GetConn(key)
+	defer conn.Close()
+	err := conn.Send("SET", key, value)
+	if err != nil {
+		fmt.Println("redis操作失败" + err.Error())
+		return false, err
+	}
+	return true, nil
+}
+
+func (s *RedisStorage) GetKey(key string) (string, error) {
+	conn := s.GetConn(key)
+	defer conn.Close()
+	value, err := redis.String(conn.Do("GET", key))
+	if len(value) == 0 || err != nil {
+		fmt.Println(err.Error())
+		return "", err
+	}
+	return value, nil
+}
+
+func (s *RedisStorage) ExpireKey(key string, tokenExpireTIme int) (bool, error) {
+	conn := s.GetConn(key)
+	defer conn.Close()
+	_, err := conn.Do("EXPIRE", key, tokenExpireTIme)
+	if err != nil {
+		fmt.Println("redis操作失败-" + err.Error())
+		return false, err
+	}
+	return true, nil
+
+}
+
+func (s *RedisStorage) DelKey(key string) (bool, error) {
+	conn := s.GetConn(key)
+	defer conn.Close()
+	_, err := conn.Do("DEL", key)
+	if err != nil {
+		fmt.Println("redis操作失败-" + err.Error())
+		return false, err
+	}
+	return true, nil
+}
+
 func InitRedis() {
 	RedisSource = make(map[string]string)
-	RedisSource["node1:1"] = "10.180.120.63:6379"
-	RedisStorageInstance = NewRedisStorage()
+	RedisSource["node1:1"] = beego.AppConfig.String("redis_resource")
+	RedisStorageInstance = newRedisStorage()
 }

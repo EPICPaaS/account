@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/utils"
-	"github.com/garyburd/redigo/redis"
 	"strconv"
 	"time"
 )
@@ -22,29 +21,14 @@ func CreateToken(userId string) (string, error) {
 	token := Token{}
 	token.UserId = userId
 	token.Secret = string(utils.RandomCreateBytes(20))
-	date := time.Time{}
-	token.Time = strconv.FormatInt(int64(date.Nanosecond()), 10)
+	token.Time = strconv.FormatInt(time.Now().UnixNano(), 10)
 	tokenByte, _ := json.Marshal(&token)
 	tokenStr := base64.URLEncoding.EncodeToString(tokenByte)
-	fmt.Println("生成的token为-" + tokenStr)
-	redisConn := RedisStorageInstance.GetConn(tokenStr)
-	defer redisConn.Close()
-	err := redisConn.Send("SET", tokenStr, tokenStr)
+	_, err := RedisStorageInstance.SetExpireKey(tokenStr, tokenStr, tokenExpireTIme)
 	if err != nil {
 		fmt.Println("redis操作失败" + err.Error())
 		return "", err
 	}
-	err = redisConn.Send("EXPIRE", tokenStr, tokenExpireTIme)
-	if err != nil {
-		fmt.Println("redis操作失败" + err.Error())
-		return "", err
-	}
-	err = redisConn.Flush()
-	if err != nil {
-		fmt.Println("redis操作失败" + err.Error())
-		return "", err
-	}
-	fmt.Println("生成的token-" + tokenStr)
 	return tokenStr, nil
 }
 
@@ -53,13 +37,12 @@ func VerifyToken(token string) (bool, string) {
 		return false, ""
 	}
 	//1.判断token是否有效
-	redisConn := RedisStorageInstance.GetConn(token)
-	defer redisConn.Close()
-	value, err := redis.String(redisConn.Do("GET", token))
+	value, err := RedisStorageInstance.GetKey(token)
 	if len(value) == 0 || err != nil {
+		fmt.Println("token校验失败：" + err.Error())
 		return false, ""
 	}
-	redisConn.Do("EXPIRE", token, tokenExpireTIme)
+	RedisStorageInstance.ExpireKey(token, tokenExpireTIme)
 	//2.解密token获取userID
 	tokenByte, _ := base64.URLEncoding.DecodeString(token)
 	tokenObj := Token{}
@@ -69,11 +52,9 @@ func VerifyToken(token string) (bool, string) {
 }
 
 func DeleteToken(token string) bool {
-	redisConn := RedisStorageInstance.GetConn(token)
-	defer redisConn.Close()
-	_, err := redisConn.Do("DEL", token)
+	_, err := RedisStorageInstance.DelKey(token)
 	if err != nil {
-		fmt.Println("退出失败" + err.Error())
+		fmt.Println("注销用户失败" + err.Error())
 		return false
 	} else {
 		return true

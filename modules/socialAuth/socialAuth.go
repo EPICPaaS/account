@@ -36,6 +36,7 @@ func HandleAccess(ctx *context.Context) {
 	if userSocial != nil {
 		fmt.Println("Identify: %s, AccessToken: %s", userSocial.Identify, userSocial.Data.AccessToken)
 	}
+	ctx.Input.CruSession.Set("custom_userSocial_identify", userSocial.Identify)
 	if len(redirect) > 0 {
 		ctx.Redirect(302, redirect)
 	}

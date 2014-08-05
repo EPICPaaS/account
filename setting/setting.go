@@ -6,11 +6,15 @@ import (
 	"github.com/EPICPaaS/account/modules/socialAuth"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/cache"
+	_ "github.com/astaxie/beego/cache"
+	_ "github.com/astaxie/beego/cache/redis"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/captcha"
 	"github.com/beego/social-auth"
 	"github.com/beego/social-auth/apps"
+	_ "github.com/garyburd/redigo/redis"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
 )
 
 var (
@@ -23,8 +27,12 @@ func init() {
 }
 
 func LoadConfig() {
-
-	store := cache.NewMemoryCache()
+	redisServer := beego.AppConfig.String("redis_resource")
+	redisServer = "{\"conn\":\"" + redisServer + "\"}"
+	store, err := cache.NewCache("redis", redisServer)
+	if err != nil {
+		log.Panic("缓存出错" + err.Error())
+	}
 	Captcha = captcha.NewWithFilter("/captcha/", store)
 
 	driverName := beego.AppConfig.String("driverName")
@@ -35,7 +43,7 @@ func LoadConfig() {
 	orm.RegisterDriver("mysql", orm.DR_MySQL)
 
 	// set default database
-	err := orm.RegisterDataBase("default", driverName, dataSource, maxIdle, maxOpen)
+	err = orm.RegisterDataBase("default", driverName, dataSource, maxIdle, maxOpen)
 	if err != nil {
 		beego.Error(err)
 	}
@@ -84,8 +92,10 @@ func SocialAuthInit() {
 		beego.Error(err)
 	}
 
-	socialAuth.SocialAuth = social.NewSocial("/login", new(socialAuth.SocialAuther))
+	socialAuth.SocialAuth = social.NewSocial("/register/connect", new(socialAuth.SocialAuther))
+	socialAuth.SocialAuth.ConnectSuccessURL = "/register/connect"
 	beego.InsertFilter("/login", beego.BeforeRouter, filter.HandleAccess)
+	beego.InsertFilter("/", beego.BeforeRouter, filter.HandleAccess)
 	beego.InsertFilter("/login/*/access", beego.BeforeRouter, socialAuth.HandleAccess)
 	beego.InsertFilter("/login/*", beego.BeforeRouter, socialAuth.HandleRedirect)
 }

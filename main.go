@@ -5,6 +5,8 @@ import (
 	"github.com/EPICPaaS/account/setting"
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego"
+	_ "github.com/astaxie/beego/session/redis"
+	_ "github.com/garyburd/redigo/redis"
 	"runtime"
 )
 
@@ -14,5 +16,7 @@ func main() {
 	setting.LoadConfig()
 	tools.InitRedis()
 	beego.SessionOn = true
+	beego.SessionProvider = "redis"
+	beego.SessionSavePath = beego.AppConfig.String("redis_resource")
 	beego.Run()
 }

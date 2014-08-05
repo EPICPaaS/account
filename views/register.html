@@ -73,7 +73,7 @@
            <div class="form-group"> 
             <label class="control-label" for="RegisterForm-Captcha">验证码</label> 
 			{{create_captcha}}
-            <input id="RegisterForm-Captcha" name="Captcha" type="text" class="form-control" placeholder="请输入验证码">
+            <input id="RegisterForm-Captcha" name="captcha" type="text" class="form-control" placeholder="请输入验证码">
            </div> 
            <div class="form-group"> 
            </div> 
@@ -84,7 +84,7 @@
           <div class="auth-page"> 
            <h3 class="title"> <i class="icon icon-question"></i> 帮助 </h3> 
            <p class="well"> 已经注册帐户的用户，请直接登录。 </p> 
-           <p> <a href="{{.AppUrl}}/login" class="btn btn-default">现在登录&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
+           <p> <a href="/login" class="btn btn-default">现在登录&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
           </div> 
          </div> 
         </div> 

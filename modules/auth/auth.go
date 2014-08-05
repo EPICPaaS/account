@@ -6,7 +6,6 @@ import (
 	"github.com/EPICPaaS/account/models"
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego/orm"
-	"github.com/garyburd/redigo/redis"
 	"strconv"
 	"strings"
 )
@@ -30,11 +29,38 @@ func RegisterUser(user *models.User, username, email, password string) error {
 	return user.Insert()
 }
 
+func ConnectUpdateUser(user *models.User, password string) error {
+	salt := models.GetUserSalt()
+	pwd := tools.EncodePassword(password, salt)
+	user.Password = fmt.Sprintf("%s$%s", salt, pwd)
+	return user.Update("UserName", "Password")
+}
+
 func UserIsExists(username, email string) bool {
 	user := models.User{}
 	user.UserName = strings.ToLower(username)
 	user.Email = strings.ToLower(email)
 	return user.Exists()
+}
+
+func InitConnect(identify string) (string, bool) {
+	user := models.User{}
+	user.Identify = identify
+	err := user.Read("Identify")
+	if err != nil {
+		err = user.Insert()
+		if err != nil {
+			fmt.Println("connect创建用户失败-" + err.Error())
+		}
+	}
+	id := user.Id
+	password := user.Password
+	if len(password) == 0 {
+		return strconv.Itoa(id), false
+	} else {
+		return strconv.Itoa(id), true
+	}
+
 }
 
 func VerifyUser(username, password string) (bool, *models.User) {
@@ -73,9 +99,9 @@ func VerifyPassword(rawPwd, encodedPwd string) bool {
 func GetUserInfo(userid string) (bool, models.User) {
 	var err error
 	user := models.User{}
+	user.Id, _ = strconv.Atoi(userid)
 	userKey := "$account_userid_" + strconv.Itoa(user.Id)
-	conn := tools.RedisStorageInstance.GetConn(userKey)
-	value, err := redis.String(conn.Do("GET", userKey))
+	value, err := tools.RedisStorageInstance.GetKey(userKey)
 	if len(value) != 0 || err == nil {
 		valueByte := []byte(value)
 		err := json.Unmarshal(valueByte, &user)
@@ -84,14 +110,13 @@ func GetUserInfo(userid string) (bool, models.User) {
 		}
 	}
 	qs := orm.NewOrm()
-	user.Id, _ = strconv.Atoi(userid)
 	err = qs.Read(&user, "Id")
 	if err != nil {
 		fmt.Println("用户登录读取用户信息失败" + err.Error())
 		return false, user
 	}
 	userByte, _ := json.Marshal(&user)
-	conn.Do("SET", userKey, string(userByte))
+	tools.RedisStorageInstance.SetKey(userKey, string(userByte))
 	return true, user
 
 }

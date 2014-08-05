@@ -8,13 +8,13 @@ import (
 
 type User struct {
 	Id          int
-	UserName    string `orm:"size(30);unique"`
+	UserName    string `orm:"size(30)"`
 	NickName    string `orm:"size(30)"`
 	Password    string `orm:"size(128)"`
 	Url         string `orm:"size(100)"`
 	Company     string `orm:"size(30)"`
 	Location    string `orm:"size(30)"`
-	Email       string `orm:"size(80);unique"`
+	Email       string `orm:"size(80)"`
 	GrEmail     string `orm:"size(32)"`
 	Info        string ``
 	Github      string `orm:"size(30)"`

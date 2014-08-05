@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/EPICPaaS/account/models"
 	"github.com/EPICPaaS/account/modules/auth"
 	"github.com/EPICPaaS/account/setting"
@@ -14,7 +13,7 @@ type RegisterController struct {
 
 func (this *RegisterController) Get() {
 	this.Data["AppUrl"] = beego.AppConfig.String("appUrl")
-	fmt.Println(setting.Captcha.VerifyReq(this.Ctx.Request))
+
 	this.TplNames = "register.html"
 }
 
@@ -28,6 +27,13 @@ func (this *RegisterController) Register() {
 		this.Data["msg"] = err.Error()
 		return
 	}
+	ok := setting.Captcha.VerifyReq(this.Ctx.Request)
+	if !ok {
+		this.Data["state"] = "注册失败"
+		this.Data["msg"] = "验证码错误"
+		return
+	}
+
 	isExist := auth.UserIsExists(user.UserName, user.Email)
 	if isExist {
 		this.Data["state"] = "注册失败"

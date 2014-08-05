@@ -25,6 +25,7 @@
   <script type="text/javascript" src="/static/js/editor.js"></script> 
   <script type="text/javascript" src="/static/js/jquery.validate.js"></script>  
   <script type="text/javascript" src="/static/js/register.js"></script>  	 
+  <script type="text/javascript" src="/static/js/login.js"></script> 
 <!--[if lt IE 9]>  
 			<script type="text/javascript" src="/account/static/js/jsml5shiv.js"></script>
 <![endif]-->
@@ -40,9 +41,11 @@
         <div class="row"> 
          <div class="col-md-6 auth-page"> 
           <h3 class="title"> <i class="icon icon-user"></i> 密码设置 </h3> 
-          <form method="POST"  id="register_form" action="/register"> 
-		   <input name="id" value="{{.id}}" type="hidden" />
-		   <input name="identify" value="{{.identify}}" type="hidden" />
+          <form method="POST"  id="register_form" action="/register/connect"> 
+			 {{if .error}}
+                   <p id="error" style="color:red">{{.error}}</p>
+			 {{end}}
+		   <input name="userId" value="{{.userId}}" type="hidden" />
            <div class="form-group"> 
             <label class="control-label" for="UserName">用户名</label> 
             <input id="UserName" name="UserName" type="text" value="" class="form-control" placeholder="请输入您的用户名" /> 
@@ -65,7 +68,7 @@
           <div class="auth-page"> 
            <h3 class="title"> <i class="icon icon-question"></i> 帮助 </h3> 
            <p class="well"> 已经注册帐户的用户，请直接登录。 </p> 
-           <p> <a href="{{.AppUrl}}/login" class="btn btn-default">现在登录&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
+           <p> <a href="/login" class="btn btn-default">现在登录&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
           </div> 
          </div> 
         </div> 
