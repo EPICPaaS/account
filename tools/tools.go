@@ -104,7 +104,7 @@ func EncodeMd5(str string) string {
 
 // use pbkdf2 encode password
 func EncodePassword(rawPwd string, salt string) string {
-	pwd := PBKDF2([]byte(rawPwd), []byte(salt), 10000, 50, sha256.New)
+	pwd := PBKDF2([]byte(rawPwd), []byte(salt), 5, 5, sha256.New)
 	return hex.EncodeToString(pwd)
 }
 
