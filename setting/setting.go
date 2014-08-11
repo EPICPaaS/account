@@ -23,7 +23,7 @@ var (
 )
 
 func init() {
-	orm.RegisterModel(new(models.User))
+	orm.RegisterModel(new(models.User), new(models.Config))
 }
 
 func LoadConfig() {

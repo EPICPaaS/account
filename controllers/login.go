@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/EPICPaaS/account/modules/auth"
+	"github.com/EPICPaaS/account/modules/config"
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego"
 	"strconv"
@@ -50,7 +51,7 @@ func (this *LoginController) Login() {
 	this.Data["token"] = token
 	this.Data["epic_sub_site"] = loginRedirect
 
-	subSitesConf := beego.AppConfig.String("sub-sites")
+	subSitesConf := config.GetSubSites()
 
 	this.Data["srcs"] = strings.Split(subSitesConf, ",")
 
