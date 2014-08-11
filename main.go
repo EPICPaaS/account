@@ -13,8 +13,8 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	beego.SetStaticPath("/static", "static")
-	setting.LoadConfig()
 	tools.InitRedis()
+	setting.LoadConfig()
 	beego.SessionOn = true
 	beego.SessionProvider = "redis"
 	beego.SessionSavePath = beego.AppConfig.String("redis_resource")

@@ -2,6 +2,7 @@ package setting
 
 import (
 	"github.com/EPICPaaS/account/models"
+	"github.com/EPICPaaS/account/modules/config"
 	"github.com/EPICPaaS/account/modules/filter"
 	"github.com/EPICPaaS/account/modules/socialAuth"
 	"github.com/astaxie/beego"
@@ -54,6 +55,8 @@ func LoadConfig() {
 		beego.Error(err)
 	}
 	SocialAuthInit()
+
+	config.InitConfig()
 }
 
 func SocialAuthInit() {
