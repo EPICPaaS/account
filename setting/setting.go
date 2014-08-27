@@ -5,14 +5,14 @@ import (
 	"github.com/EPICPaaS/account/modules/config"
 	"github.com/EPICPaaS/account/modules/filter"
 	"github.com/EPICPaaS/account/modules/socialAuth"
+	"github.com/EPICPaaS/social-auth"
+	"github.com/EPICPaaS/social-auth/apps"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/cache"
 	_ "github.com/astaxie/beego/cache"
 	_ "github.com/astaxie/beego/cache/redis"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/captcha"
-	"github.com/beego/social-auth"
-	"github.com/beego/social-auth/apps"
 	_ "github.com/garyburd/redigo/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
@@ -91,6 +91,13 @@ func SocialAuthInit() {
 	clientId = beego.AppConfig.String("qq_client_id")
 	secret = beego.AppConfig.String("qq_client_secret")
 	err = social.RegisterProvider(apps.NewQQ(clientId, secret))
+	if err != nil {
+		beego.Error(err)
+	}
+
+	clientId = beego.AppConfig.String("renren_client_id")
+	secret = beego.AppConfig.String("renren_client_secret")
+	err = social.RegisterProvider(apps.NewRenren(clientId, secret))
 	if err != nil {
 		beego.Error(err)
 	}

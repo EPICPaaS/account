@@ -2,9 +2,9 @@ package socialAuth
 
 import (
 	"fmt"
+	"github.com/EPICPaaS/social-auth"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
-	"github.com/beego/social-auth"
 	"strconv"
 )
 
