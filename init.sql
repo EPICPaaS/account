@@ -1,1 +1,2 @@
 INSERT INTO `config` VALUES ('1', 'sub-sites', 'http://10.180.128.183:8080/developer,http://10.180.120.65/developer,http://yourchanges.tk:8090,http://10.180.120.63/developer', '单点登录子站配置');
+INSERT INTO `config` VALUES ('3', 'redirectURL', 'http://10.180.120.63', '重定向站点配置');

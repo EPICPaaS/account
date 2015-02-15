@@ -9,11 +9,11 @@
 
 	请稍候....
 	
-	<script type="text/javascript">
-		setTimeout(function(){
-			window.location.href = '{{.epic_sub_site}}';
-		}, 3 * 1000);
-	</script>
+        <script type="text/javascript">
+                setTimeout(function(){
+                        window.location.href = '{{.epic_sub_site}}';
+                }, 3 * 1000);
+        </script>
 	
 	{{range .srcs}}
     <script src='{{.}}/epic_login?token={{$.token}}'></script>

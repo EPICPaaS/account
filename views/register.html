@@ -1,100 +1,101 @@
 <html>
- <head> 
-  <meta charset="utf-8" /> 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-  <meta name="description" content="" /> 
-  <meta name="author" content="" /> 
-  <title>用户注册</title> 
-  <link href="/static/css/bootstrap.css" rel="stylesheet" /> 
-  <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
-  <link href="/static/css/font-awesome.min.css" rel="stylesheet" /> 
-  <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
-  <link href="/static/css/prettify.css" rel="stylesheet" /> 
-  <link href="/static/css/select2.css" rel="stylesheet" /> 
-  <link href="/static/css/base.css" rel="stylesheet" /> 
-  <link href="/static/css/markdown.css" rel="stylesheet"/> 
-  <link href="/static/css/main.css" rel="stylesheet" /> 
-  <script type="text/javascript" src="/static/js/jquery.min.js"></script> 
-  <script type="text/javascript" src="/static/js/jquery.extend.js"></script> 
-  <script type="text/javascript" src="/static/js/bootstrap.js"></script> 
-  <script type="text/javascript" src="/static/js/lib.min.js"></script> 
-  <script type="text/javascript" src="/static/js/prettify.js"></script> 
-  <script type="text/javascript" src="/static/js/jStorage.js"></script> 
-  <script type="text/javascript" src="/static/js/main.js"></script> 
-  <script type="text/javascript" src="/static/js/editor.js"></script> 
-  <script type="text/javascript" src="/static/js/jquery.validate.js"></script>  
-  <script type="text/javascript" src="/static/js/register.js"></script>  	 
-<!--[if lt IE 9]>  
-			<script type="text/javascript" src="/account/static/js/jsml5shiv.js"></script>
-<![endif]-->
-	 
- </head> 
- <body>
-	 <div id="wrapper"> 
-   <div id="main" class="container"> 
-    <div class="row"> 
-     <div id="content" class="col-md-8 col-md-offset-2"> 
-      <div class="box"> 
-       <div class="cell last slim"> 
-        <div class="row"> 
-         <div class="col-md-6 auth-page"> 
-          <h3 class="title"> <i class="icon icon-user"></i> 注册 </h3> 
-          <form method="POST"  id="register_form" action="/register"> 
-           <div class="form-group"> 
-            <label class="control-label" for="UserName">用户名</label> 
-            <input id="UserName" name="UserName" type="text" value="" class="form-control" placeholder="请输入您的用户名" /> 
-            <p class="help-block">最小长度为 5, 只允许包含 a-z 0-9 - _</p> 
-           </div> 
-           <div class="form-group"> 
-            <label class="control-label" for="RegisterForm-Email">邮箱</label> 
-            <input id="RegisterForm-Email" name="Email" type="text" value="" class="form-control" placeholder="请输入您的邮箱地址" /> 
-           </div> 
-		<!--
-           <div class="form-group"> 
-            <label class="control-label" for="RegisterForm-CompanyName">公司名称</label> 
-            <input id="RegisterForm-CompanyName" name="CompanyName" type="text" value="" class="form-control" placeholder="请输入公司名称" /> 
-           </div> 
-           <div class="form-group"> 
-            <label class="control-label" for="RegisterForm-QQ">QQ</label> 
-            <input id="RegisterForm-QQ" name="QQ" type="text" value="" class="form-control" placeholder="请输入QQ号码" /> 
-           </div> 
-           <div class="form-group"> 
-            <label class="control-label" for="RegisterForm-TelNum">电话号码</label> 
-            <input id="RegisterForm-TelNum" name="TelNum" type="text" value="" class="form-control" placeholder="请输入电话号码" /> 
-           </div> 
-		-->
-           <div class="form-group"> 
-            <label class="control-label" for="RegisterForm-Password">密码</label> 
-            <input id="RegisterForm-Password" name="Password" type="password" value="" class="form-control" placeholder="请输入您的密码" /> 
-           </div> 
-           <div class="form-group"> 
-            <label class="control-label" for="RegisterForm-PasswordRe">重复输入密码</label> 
-            <input id="RegisterForm-PasswordRe" name="PasswordRe" type="password" value="" class="form-control" placeholder="请再次输入您的密码" /> 
-           </div> 
-           <div class="form-group"> 
-            <label class="control-label" for="RegisterForm-Captcha">验证码</label> 
-			{{create_captcha}}
-            <input id="RegisterForm-Captcha" name="captcha" type="text" class="form-control" placeholder="请输入验证码">
-           </div> 
-           <div class="form-group"> 
-           </div> 
-           <button class="btn btn-primary" type="submit">注册&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></button> 
-          </form> 
-         </div> 
-         <div class="col-md-6 auth-page"> 
-          <div class="auth-page"> 
-           <h3 class="title"> <i class="icon icon-question"></i> 帮助 </h3> 
-           <p class="well"> 已经注册帐户的用户，请直接登录。 </p> 
-           <p> <a href="/login" class="btn btn-default">现在登录&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
-          </div> 
-         </div> 
-        </div> 
-       </div> 
-      </div> 
-     </div> 
-    </div> 
-   </div> 
-   <div class="wrapper-push"></div> 
-  </div>  
-</body>
+    <head> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+        <meta name="description" content="" /> 
+        <meta name="author" content="" /> 
+        <title>用户注册</title> 
+        <link href="/static/css/bootstrap.css" rel="stylesheet" /> 
+        <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+        <link href="/static/css/font-awesome.min.css" rel="stylesheet" /> 
+        <link href="/static/css/bootstrap-theme.css" rel="stylesheet" /> 
+        <link href="/static/css/prettify.css" rel="stylesheet" /> 
+        <link href="/static/css/select2.css" rel="stylesheet" /> 
+        <link href="/static/css/base.css" rel="stylesheet" /> 
+        <link href="/static/css/markdown.css" rel="stylesheet"/> 
+        <link href="/static/css/main.css" rel="stylesheet" /> 
+        <script type="text/javascript" src="/static/js/jquery.min.js"></script> 
+        <script type="text/javascript" src="/static/js/jquery.extend.js"></script> 
+        <script type="text/javascript" src="/static/js/bootstrap.js"></script> 
+        <script type="text/javascript" src="/static/js/lib.min.js"></script> 
+        <script type="text/javascript" src="/static/js/prettify.js"></script> 
+        <script type="text/javascript" src="/static/js/jStorage.js"></script> 
+        <script type="text/javascript" src="/static/js/main.js"></script> 
+        <script type="text/javascript" src="/static/js/editor.js"></script> 
+        <script type="text/javascript" src="/static/js/jquery.validate.js"></script>  
+        <script type="text/javascript" src="/static/js/register.js"></script>  	 
+        <!--[if lt IE 9]>  
+                                <script type="text/javascript" src="/account/static/js/jsml5shiv.js"></script>
+        <![endif]-->
+
+    </head> 
+    <body>
+        <div id="wrapper"> 
+            <div id="main" class="container"> 
+                <div class="row"> 
+                    <div id="content" class="col-md-8 col-md-offset-2"> 
+                        <div class="box"> 
+                            <div class="cell last slim"> 
+                                <div class="row"> 
+                                    <div class="col-md-6 auth-page"> 
+                                        <h3 class="title"> <i class="icon icon-user"></i> 注册 </h3> 
+                                        <form method="POST"  id="register_form" action="/register?redirectURL={{.redirectURL}}"> 
+                                            <div class="form-group"> 
+                                                <label class="control-label" for="UserName">用户名</label> 
+                                                <input id="UserName" name="UserName" type="text" value="" class="form-control" placeholder="请输入您的用户名" /> 
+                                                <p class="help-block">最小长度为 5, 只允许包含 a-z 0-9 - _</p> 
+                                            </div> 
+                                            <div class="form-group"> 
+                                                <label class="control-label" for="RegisterForm-Email">邮箱</label> 
+                                                <input id="RegisterForm-Email" name="Email" type="text" value="" class="form-control" placeholder="请输入您的邮箱地址" /> 
+                                            </div> 
+                                            <!--
+                                       <div class="form-group"> 
+                                        <label class="control-label" for="RegisterForm-CompanyName">公司名称</label> 
+                                        <input id="RegisterForm-CompanyName" name="CompanyName" type="text" value="" class="form-control" placeholder="请输入公司名称" /> 
+                                       </div> 
+                                       <div class="form-group"> 
+                                        <label class="control-label" for="RegisterForm-QQ">QQ</label> 
+                                        <input id="RegisterForm-QQ" name="QQ" type="text" value="" class="form-control" placeholder="请输入QQ号码" /> 
+                                       </div> 
+                                       <div class="form-group"> 
+                                        <label class="control-label" for="RegisterForm-TelNum">电话号码</label> 
+                                        <input id="RegisterForm-TelNum" name="TelNum" type="text" value="" class="form-control" placeholder="请输入电话号码" /> 
+                                       </div> 
+                                            -->
+                                            <div class="form-group"> 
+                                                <label class="control-label" for="RegisterForm-Password">密码</label> 
+                                                <input id="RegisterForm-Password" name="Password" type="password" value="" class="form-control" placeholder="请输入您的密码" /> 
+                                            </div> 
+                                            <div class="form-group"> 
+                                                <label class="control-label" for="RegisterForm-PasswordRe">重复输入密码</label> 
+                                                <input id="RegisterForm-PasswordRe" name="PasswordRe" type="password" value="" class="form-control" placeholder="请再次输入您的密码" /> 
+                                            </div> 
+                                            <div class="form-group"> 
+                                                <label class="control-label" for="RegisterForm-Captcha">验证码</label> 
+                                                {{create_captcha}}
+                                                <input id="RegisterForm-Captcha" name="captcha" type="text" class="form-control" placeholder="请输入验证码">
+                                            </div> 
+                                            <div class="form-group"> 
+                                            </div> 
+                                            <button class="btn btn-primary" type="submit">注册&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></button> 
+                                        </form> 
+                                    </div> 
+                                    <div class="col-md-6 auth-page"> 
+                                        <div class="auth-page"> 
+                                            <h3 class="title"> <i class="icon icon-question"></i> 帮助 </h3> 
+                                            <p class="well"> 已经注册帐户的用户，请直接登录。 </p> 
+                                            <p> <a href="/login" class="btn btn-default">现在登录&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a> </p> 
+                                        </div> 
+                                    </div> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+            <div class="wrapper-push"></div> 
+        </div>  
+    </body>
+</html>

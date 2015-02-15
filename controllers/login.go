@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"strconv"
+	"strings"
+
 	"github.com/EPICPaaS/account/modules/auth"
 	"github.com/EPICPaaS/account/modules/config"
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego"
-	"strconv"
-	"strings"
 )
 
 type LoginController struct {
@@ -23,6 +24,13 @@ func (this *LoginController) Get() {
 	if len(loginRedirect) > 0 {
 		this.Data["epic_sub_site"] = loginRedirect
 	}
+
+	redirectURL := this.GetString("redirectURL")
+	if "" == redirectURL {
+		redirectURL = config.GetRedirectURL()
+	}
+
+	this.Data["redirectURL"] = redirectURL
 }
 
 func (this *LoginController) Login() {
