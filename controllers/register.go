@@ -19,7 +19,11 @@ func (this *RegisterController) Get() {
 
 	redirectURL := this.GetString("redirectURL")
 	if "" == redirectURL {
-		redirectURL = config.GetRedirectURL()
+		redirectURL = this.GetString("epic_sub_site")
+
+		if "" == redirectURL {
+			redirectURL = config.GetRedirectURL()
+		}
 	}
 
 	this.Data["redirectURL"] = redirectURL
@@ -76,6 +80,7 @@ func (this *RegisterController) Succeed() {
 	this.Data["state"] = "注册成功"
 	this.Data["msg"] = "用户已经登录"
 	this.TplNames = "succeed.html"
+	this.Data["succ"] = true
 
 	redirectURL := this.GetString("redirectURL")
 	if "" == redirectURL {

@@ -27,13 +27,28 @@ func (this *LoginController) Get() {
 
 	redirectURL := this.GetString("redirectURL")
 	if "" == redirectURL {
-		redirectURL = config.GetRedirectURL()
+		redirectURL = this.GetString("epic_sub_site")
+
+		if "" == redirectURL {
+			redirectURL = config.GetRedirectURL()
+		}
 	}
 
 	this.Data["redirectURL"] = redirectURL
 }
 
 func (this *LoginController) Login() {
+	redirectURL := this.GetString("redirectURL")
+	if "" == redirectURL {
+		redirectURL = this.GetString("epic_sub_site")
+
+		if "" == redirectURL {
+			redirectURL = config.GetRedirectURL()
+		}
+	}
+
+	this.Data["redirectURL"] = redirectURL
+
 	this.Data["AppUrl"] = beego.AppConfig.String("appUrl")
 	username := this.GetString("UserName")
 	password := this.GetString("Password")
