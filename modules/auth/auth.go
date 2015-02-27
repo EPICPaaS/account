@@ -121,6 +121,18 @@ func GetUserInfo(userid string) (bool, models.User) {
 
 }
 
+func GetUserInfoFrmDB(userid string) (bool, models.User) {
+	user := models.User{}
+	user.Id, _ = strconv.Atoi(userid)
+	qs := orm.NewOrm()
+	err := qs.Read(&user, "Id")
+	if err != nil {
+		fmt.Println("用户登录读取用户信息失败" + err.Error())
+		return false, user
+	}
+	return true, user
+}
+
 func SaveNewPassword(user *models.User, password string) error {
 	salt := models.GetUserSalt()
 	user.Password = fmt.Sprintf("%s$%s", salt, tools.EncodePassword(password, salt))
