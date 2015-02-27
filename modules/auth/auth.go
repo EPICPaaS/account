@@ -120,3 +120,9 @@ func GetUserInfo(userid string) (bool, models.User) {
 	return true, user
 
 }
+
+func SaveNewPassword(user *models.User, password string) error {
+	salt := models.GetUserSalt()
+	user.Password = fmt.Sprintf("%s$%s", salt, tools.EncodePassword(password, salt))
+	return user.Update("Password", "Rands", "Updated")
+}
