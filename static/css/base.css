@@ -3,8 +3,8 @@ html, body {
 }
 
 body {
-  background-color: #eaeaea;
-  background-image: url('/static/img/bg.gif');
+  background-color: #FFFFFF;
+ /** background-image: url('/static/img/bg.gif');*/
 }
 
 body,
@@ -38,11 +38,12 @@ textarea.form-control {
 
 .navbar {
   font-size: 16px;
+  min-height:80px;
 }
 
 .navbar .logo img {
-  height: 36px;
-  margin: 5px 5px 0 0;
+  height: 50px;
+  margin: 15px 5px 0 0;
 }
 
 .navbar .navbar-menu li.has-icon > a {
@@ -72,7 +73,7 @@ textarea.form-control {
 }
 
 #main {
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 #wrapper {
