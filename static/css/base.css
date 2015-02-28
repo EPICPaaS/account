@@ -76,10 +76,9 @@ textarea.form-control {
 }
 
 #wrapper {
-  min-height: 100% !important;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -240px;
+  min-height: 100% ;
+  height: auto ;
+  _height:100%; 
 }
 
 #wrapper .wrapper-push {
@@ -338,4 +337,21 @@ a.color-link:hover,
 
 .sidebar-list li {
   margin-bottom: 5px;
+}
+
+#footer{
+    margin-top:20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #140b26;
+    background-color: #140b26;
+}
+
+#footer table.basic-info{
+    width: 100%;
+    color: whitesmoke;
+}
+#footer table.basic-info a{
+    text-decoration: underline;
+    color: #009a61;
 }
