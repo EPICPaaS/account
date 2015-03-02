@@ -8,6 +8,7 @@ import (
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego"
 	"strconv"
+	"strings"
 )
 
 type SocialAuthController struct {
@@ -67,6 +68,8 @@ func (this *SocialAuthController) Connect() {
 	if isInit {
 		this.Data["token"] = token
 		this.Data["epic_sub_site"] = config.GetRedirectURL()
+		subSitesConf := config.GetSubSites()
+		this.Data["srcs"] = strings.Split(subSitesConf, ",")
 		this.TplNames = "loginRedirect.html"
 	} else {
 		this.TplNames = "connect.html"
