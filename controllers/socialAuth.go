@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/EPICPaaS/account/models"
 	"github.com/EPICPaaS/account/modules/auth"
+	"github.com/EPICPaaS/account/modules/config"
 	"github.com/EPICPaaS/account/tools"
 	"github.com/astaxie/beego"
 	"strconv"
@@ -64,7 +65,9 @@ func (this *SocialAuthController) Connect() {
 		fmt.Println("生成token失败-" + err.Error())
 	}
 	if isInit {
-		this.Redirect("/login", 302)
+		this.Data["token"] = token
+		this.Data["epic_sub_site"] = config.GetRedirectURL()
+		this.TplNames = "loginRedirect.html"
 	} else {
 		this.TplNames = "connect.html"
 	}
