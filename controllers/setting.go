@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/EPICPaaS/account/modules/auth"
 	"github.com/EPICPaaS/account/modules/config"
 	"github.com/EPICPaaS/account/tools"
@@ -70,7 +69,6 @@ func (this *SettingController) ChangePasswordSave() {
 		this.TplNames = "change_password_succeed.html"
 		return
 	}
-	fmt.Println("user.Password:", user.Password)
 	ok = auth.VerifyPassword(passwordOld, user.Password)
 	if !ok {
 		this.Data["msg"] = "修改密码失败，当前密码验证错误"

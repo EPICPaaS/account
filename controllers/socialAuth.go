@@ -16,7 +16,12 @@ type SocialAuthController struct {
 }
 
 func (this *SocialAuthController) ConnectPost() {
-	userId := this.GetString("userId")
+	token := this.Ctx.GetCookie("epic_user_token")
+	ok, userId := tools.VerifyToken(token)
+	if !ok || len(userId) == 0 {
+		this.Redirect("/", 302)
+		return
+	}
 	password := this.GetString("Password")
 	userName := this.GetString("UserName")
 	if len(userId) == 0 || len(password) == 0 || len(userName) == 0 {
@@ -50,8 +55,14 @@ func (this *SocialAuthController) ConnectPost() {
 		this.Data["msg"] = err.Error()
 		return
 	}
+
+	subSitesConf := config.GetSubSites()
+	this.Data["srcs"] = strings.Split(subSitesConf, ",")
+	this.Data["token"] = token
 	this.Data["state"] = "注册成功"
-	this.Data["msg"] = "恭喜"
+	this.Data["msg"] = "3秒后自动跳转!!"
+	this.Data["succ"] = true
+	this.Data["redirectURL"] = config.GetRedirectURL()
 	this.TplNames = "succeed.html"
 }
 

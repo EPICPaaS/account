@@ -26,10 +26,14 @@
 
         {{if .succ}}
         <script type="text/javascript">
-setTimeout(function () {
-    window.location.href = '{{.redirectURL}}';
-}, 3 * 1000);
+		setTimeout(function () {
+		    window.location.href = '{{.redirectURL}}';
+		}, 3 * 1000);
         </script>
+		{{range .srcs}}
+       <script src='{{.}}/epic_login?token={{$.token}}'></script>
+	   {{end}}
+		
         {{end}}
     </body>
 </html>
