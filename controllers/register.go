@@ -72,7 +72,7 @@ func (this *RegisterController) Register() {
 		return
 	}
 	this.Data["state"] = "注册成功"
-	this.Data["msg"] = "恭喜"
+	this.Data["msg"] = "恭喜!!将进行自动跳转,请稍等..."
 
 }
 func (this *RegisterController) Succeed() {

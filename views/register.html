@@ -61,11 +61,13 @@
                                         <form method="POST"  id="register_form" action="/register?redirectURL={{.redirectURL}}"> 
                                             <div class="form-group"> 
                                                 <label class="control-label" for="UserName">用户名</label> 
+												<label class="" style="color:red">*</label>
                                                 <input id="UserName" name="UserName" type="text" value="" class="form-control" placeholder="请输入您的用户名" /> 
-                                                <p class="help-block">最小长度为 5, 只允许包含 a-z 0-9 - _</p> 
+                                                 
                                             </div> 
                                             <div class="form-group"> 
                                                 <label class="control-label" for="RegisterForm-Email">邮箱</label> 
+												<label class="" style="color:red">*</label>
                                                 <input id="RegisterForm-Email" name="Email" type="text" value="" class="form-control" placeholder="请输入您的邮箱地址" /> 
                                             </div> 
                                             <!--
@@ -83,15 +85,18 @@
                                        </div> 
                                             -->
                                             <div class="form-group"> 
-                                                <label class="control-label" for="RegisterForm-Password">密码</label> 
+                                                <label class="control-label" for="RegisterForm-Password">密码</label>
+												<label class="" style="color:red">*</label> 
                                                 <input id="RegisterForm-Password" name="Password" type="password" value="" class="form-control" placeholder="请输入您的密码" /> 
                                             </div> 
                                             <div class="form-group"> 
                                                 <label class="control-label" for="RegisterForm-PasswordRe">重复输入密码</label> 
+												<label class="" style="color:red">*</label>
                                                 <input id="RegisterForm-PasswordRe" name="PasswordRe" type="password" value="" class="form-control" placeholder="请再次输入您的密码" /> 
                                             </div> 
                                             <div class="form-group"> 
                                                 <label class="control-label" for="RegisterForm-Captcha">验证码</label> 
+												<label class="" style="color:red">*</label>
                                                 {{create_captcha}}
                                                 <input id="RegisterForm-Captcha" name="captcha" type="text" class="form-control" placeholder="请输入验证码">
                                             </div> 

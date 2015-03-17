@@ -1,5 +1,7 @@
 $(document).ready(function(){
 	handleSubmit();
+	time(); 
+	
 });
 
     var handleSubmit = function() {
@@ -9,7 +11,8 @@ $(document).ready(function(){
                 UserName : {
                     required : true,
 					minlength:5,
-					maxlength:30
+					maxlength:30,
+					checkUserName:true
                 },
                 Email : {
                     required : true,
@@ -26,12 +29,14 @@ $(document).ready(function(){
                 },
 				Password : {
                     required : true,
-					minlength: 5
+					minlength: 5,
+					maxlength:30,
 					
                 },
 				PasswordRe : {
                     required : true,
 					minlength: 5,
+					maxlength:30,
                     equalTo: "#RegisterForm-Password"
                 },
 				Captcha : {
@@ -62,12 +67,14 @@ $(document).ready(function(){
                 },
 				Password : {
                     required : "密码不能为空",
-					minlength: "密码长度不能小于5"
+					minlength: "密码长度不能小于5",
+					maxlength:"最大长度为30"
 					
                 },
 				PasswordRe : {
                     required : "重复密码不能为空",
 					minlength: "重复密码长度不能小于5",
+					maxlength:"最大长度为30",
                     equalTo: "两次输入密码不一致"
                 },
 				Captcha : {
@@ -100,5 +107,20 @@ $(document).ready(function(){
                 return false;
             }
         });
+		
+		jQuery.validator.addMethod( "checkUserName",function(value,element){   
+		    var pattern =/^[a-zA-Z0-9_]{1,}$/; ;
+		     if(value!=''){if(!pattern.exec(value)){return this.optional(element) ||false;}};
+		    return this.optional(element) ||true;
+		} ,"用户名只能由字母数字下划线组成" );  
+
       }
+	
+	function time() {
+		    $(".captcha-img").click();
+            setTimeout(function() {
+                time()
+            },
+            480000);
+    }
 
