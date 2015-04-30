@@ -68,6 +68,12 @@ func (this *SocialAuthController) ConnectPost() {
 
 func (this *SocialAuthController) Connect() {
 	identify := this.GetSession("custom_userSocial_identify")
+	userName, ok := this.GetSession("custom_userSocial_userName").(string)
+
+	if ok && len(userName) > 0 {
+		userNames := strings.Split(userName, "_")
+		this.Data["intrant"] = userNames[0] + "用户“" + userNames[1] + "”"
+	}
 	userId, isInit := auth.InitConnect(identify.(string))
 	token, err := tools.CreateToken(userId)
 	this.Data["userId"] = userId
