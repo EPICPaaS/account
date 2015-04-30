@@ -58,7 +58,7 @@
        <div class="cell last slim">
         <div class="row"> 
          <div class="col-md-12 auth-page"> 
-		  <h5 class="title"> <i class="icon icon-user"></i> 欢迎您，{{if ne .intrant ""}}{{.intrant}}{{end}}，请完善以下资料开启你的有谱云 </h5> 
+		  <h5 class="title"> <i class="icon icon-user"></i> 欢迎您，{{.intrant}}请完善以下资料开启你的有谱云 </h5> 
           <form method="POST"  id="register_form" action="/register/connect"> 
 			 {{if .error}}
                    <p id="error" style="color:red">{{.error}}</p>

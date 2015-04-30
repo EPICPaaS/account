@@ -72,7 +72,7 @@ func (this *SocialAuthController) Connect() {
 
 	if ok && len(userName) > 0 {
 		userNames := strings.Split(userName, "_")
-		this.Data["intrant"] = userNames[0] + "用户“" + userNames[1] + "”"
+		this.Data["intrant"] = userNames[0] + "用户“" + userNames[1] + "”，"
 	}
 	userId, isInit := auth.InitConnect(identify.(string))
 	token, err := tools.CreateToken(userId)
